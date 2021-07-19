@@ -3,6 +3,9 @@ const { firstname, lastname } = require("./data");
 class Person {
     constructor(data) {
         this.data = data;
+        this.children = this.data.children;
+        this.cars = this.data.cars;
+        //this.personFullName = this.data.firstname + this.data.lastname;
     }
 
     fullName() {
@@ -14,25 +17,19 @@ class Person {
     }
 
     firstChild() {
-        const child = this.data.children[0];
-        console.log(`${child.firstname} ${child.lastname} (${child.age})`);
+        console.log(`${this.children[0].firstname} ${this.children[0].lastname} (${this.children[0].age})`);
     }
 
     lastChild() {
-        const child = this.data.children[2];
-        console.log(`${child.firstname} ${child.lastname} (${child.age})`)
-
+        console.log(`${this.children[2].firstname} ${this.children[2].lastname} (${this.children[2].age})`);
     }
 
     firstCar() {
-        const car = this.data.cars[0];
-        console.log(`${car.brand} ${car.model} (${car.color})`);
-
+        console.log(`${this.cars[0].brand} ${this.cars[0].model} (${this.cars[0].color})`);
     }
 
     lastCar() {
-        const car = this.data.cars[2];
-        console.log(`${car.brand} ${car.model} (${car.color})`)
+        console.log(`${this.cars[2].brand} ${this.cars[2].model} (${this.cars[2].color})`)
     }
 
     apartmentPrice() {
@@ -41,9 +38,8 @@ class Person {
 
     chidren() {
         console.log(`This is a chidren of ${this.data.firstname} ${this.data.lastname}:`);
-        const children = this.data.children;
         let childNumber = 0;
-        for (let child of children) {
+        for (let child of this.children) {
             console.log(`${++childNumber}. ${child.firstname} ${child.lastname} (${child.age})`);
         }
     }
@@ -54,9 +50,8 @@ class Person {
 
     autopark() {
         console.log(`This is ${this.data.firstname} cars:`);
-        const cars = this.data.cars;
         let carNumber = 0;
-        for (let car of cars) {
+        for (let car of this.cars) {
             console.log(`${++carNumber}. ${car.brand} ${car.model} (${car.color})`);
         }
     }
@@ -66,27 +61,24 @@ class Person {
         console.log(`${this.data.firstname} is living at ${livingAddress}.`);
     }
 
-    carPrice() {
-        console.log('==========KAZKAS NE TAIP==========');
-        const cars = this.data.cars
-        for (let car of cars) {
-            console.log(`${car.brand} ${car.model} is purchased for ${car.price} ${car.currency}.`);
-        }
-        console.log('==================================');
+    carPrice(index) {
+        console.log('=============CAR COST============');
+        console.log(`${this.cars[index].brand} ${this.cars[index].model} is purchased for ${this.cars[index].price} ${this.cars[index].currency}.`);
     }
 
     totalSpentForCars() {
-        let totalSpent = 0;
-        const cars = this.data.cars;
+        console.log('==============COSTS===============');
+        let totalSpentOnCars = 0;
 
-        for (let car of cars) {
+        for (let car of this.cars) {
             if (car.currency === 'Litas') {
-                totalSpent += car.price / 3.45;
+                totalSpentOnCars += car.price / 3.45;
             } else {
-                totalSpent += car.price;
+                totalSpentOnCars += car.price;
             }
+            this.totalSpentOnCars = totalSpentOnCars;
         }
-        console.log(`${this.data.firstname} has spent ${totalSpent.toFixed(2)} Euros for his cars.`);
+        console.log(`${this.data.firstname} has spent ${this.totalSpentOnCars.toFixed(2)} Euros for his cars.`);
     }
 
     totalSpentForApartments() {
@@ -94,8 +86,9 @@ class Person {
     }
 
     totalSpendings() {
-        console.log('============NEISSPRESTA===========');
-        console.log(`${this.data.firstname} has spent (=====) ${this.data.adress.currency} tottaly.`);
+        console.log('============TOTAL COSTS===========');
+        const totalSpent = this.totalSpentOnCars + this.data.adress.price;
+        console.log(`${this.data.firstname} has spent ${totalSpent.toFixed(2)} ${this.data.adress.currency} tottaly.`);
         console.log('==================================');
     }
 }
