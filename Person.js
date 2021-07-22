@@ -45,7 +45,16 @@ class Person {
     }
 
     aliveChildren() {
-        console.log(`${this.data.firstname} ${this.data.lastname} has only 2 children alive.`);
+        let aliveChildrenCount = 0;
+        for (let i = 0; i < this.children.length; i++) {
+            const childrenAlive = this.children[i];
+            if (childrenAlive.alive === true) {
+                ++aliveChildrenCount;
+            }
+        }
+        if (this.children.length === aliveChildrenCount) {
+        }
+        console.log(`${this.data.firstname} ${this.data.lastname} has only ${aliveChildrenCount} children alive.`);
     }
 
     autopark() {
